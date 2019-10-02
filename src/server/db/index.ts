@@ -1,19 +1,18 @@
-import * as mysql from 'mysql';
+import * as knex from 'knex';
 import config from '../config';
 
-export const pool = mysql.createPool(config.mysql);
+export const knextion = knex(config.knex);
 
-export const Query = (query: string, values?: any) => {
-    return new Promise<Array<any>> ((resolve, reject) => {
-        pool.query(query, values, (err, results) => {
-            if (err) reject(err);
-            return resolve(results);
-        })
-    })
-}
 
-// connect queries here
+
+import Books from './queries/books';
+import BookCats from './queries/bookcats';
+import Categories from './queries/categories';
+import Users from './queries/users';
 
 export default {
-
+    Books,
+    BookCats,
+    Categories,
+    Users
 }

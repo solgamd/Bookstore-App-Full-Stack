@@ -1,1 +1,14 @@
-export default require(`./${process.env.NODE_ENV}`).default;
+export default {
+    knex: {
+        client: 'mysql',
+        connection: {
+            host: 'localhost',
+            user: 'root',
+            password: 'null',
+            database: 'bookstore'
+        }
+    },
+    auth: {
+        secret: 'renaultmegane'
+    }
+}
