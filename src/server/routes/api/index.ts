@@ -6,7 +6,7 @@ import categoryRouter from './categories';
 
 const router = express.Router();
 
-router.use((req, res, next) => {
+router.use((req: any, res, next) => {
     passport.authenticate('bearer', {session: false}, (err, user, info) => {
         if (user) req.user = user;
         return next();

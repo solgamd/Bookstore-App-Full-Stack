@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 passport.use(new LocalStrategy.Strategy({
-    usernameField: 'email',
+    usernameField: 'username',
     session: false
 }, async (email, password, done) => {
     try {

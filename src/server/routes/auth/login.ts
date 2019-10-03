@@ -1,12 +1,12 @@
 import * as express from 'express';
-import passport from 'passport';
+import * as passport from 'passport';
 import { CreateToken } from '../../utils/security/tokens';
 
 const router = express.Router();
 
-router.post('/', passport.authenticate('local'), async (req: any, res) => {
+router.post('/', passport.authenticate('local'), async (req: any, res, next) => {
     try {
-        let token = await CreateToken({userid: req.user.id});
+        let token = await CreateToken({ userid: req.user.id });
         res.json({
             token,
             role: req.user.role,
@@ -17,6 +17,5 @@ router.post('/', passport.authenticate('local'), async (req: any, res) => {
         res.send('Incorrect login credentials.');
     }
 })
-
 
 export default router;

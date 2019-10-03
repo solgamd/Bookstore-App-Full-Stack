@@ -8,7 +8,4 @@ router.use('/login', loginRouter);
 router.use('/register', registerRouter);
 
 
-export default {
-    loginRouter,
-    registerRouter
-}
+export default router;

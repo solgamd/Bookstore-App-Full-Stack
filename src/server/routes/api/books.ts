@@ -17,7 +17,8 @@ router.get('/:id', async (req, res, next) => {
     let id = req.params.id;
     try {
         let [book] = await db.Books.getOneBook(id);
-        res.json([book]);
+        let [bookcats]: any = await db.BookCats.getBookCats(id);
+        res.json([book, bookcats]);
     } catch (error) {
         console.log(error);
         res.status(500);
@@ -34,32 +35,35 @@ router.delete('/:id', async (req, res) => {
         res.status(500);
     }
 })
-// router.post('/', async (req, res) => {
-//     try {
-//         let newBook = {
-//             title: req.body.title,
-//             descrip: req.body.descrip,
-//             author: req.body.author
-//         }
-//         let [bookResult] = await db.Books.insert(newBook);
 
-//         let newBookCat = {
-//             bookid: result,
-//             catid: req.body.selectedCat
-//         }
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
+router.post('/', async (req, res) => {
+    try {
+        let newBook = {
+            id: req.params.id,
+            title: req.body.title,
+            descrip: req.body.descrip,
+            author: req.body.author
+        }
+        await db.Books.insert(newBook);
+
+        // let newBookCat = {
+        //     bookid: result,
+        //     catid: req.body.selectedCat
+        // }
+        // await db.BookCats.insert(newBookCat);
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 router.put('/:id', async (req, res) => {
-    let id = req.params.id;
     try {
-        let book = await db.Books.edit(id)
-        res.json(book);
+        await db.Books.edit(req.body, req.params.id)
+        res.json('Book edited!');
     } catch (error) {
         console.log(error);
         res.status(500);
     }
 })
+
 export default router;
